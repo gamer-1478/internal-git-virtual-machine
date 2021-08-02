@@ -85,7 +85,7 @@ app.post('/schedule-user-change', async (req, res) => {
 app.get('/', async (req, res) => {
     console.log("console.log is working atleast")
     let resp = await AddGitoliteRepoWithUser("test", "gamer1478", [{ username: 'gamer1478', perms: 'own' }], gitoliteConfigFile)
-    console.log(resp)
+    console.log(await resp)
     res.send(await resp)
 })
 
