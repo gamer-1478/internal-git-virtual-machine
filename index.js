@@ -39,7 +39,7 @@ app.post('/schedule-repo-add', async (req, res) => {
     scheduledRepoAddArray.push({ reponame: await reponame, owner: await owner, port: await port })
     console.log(scheduledRepoAddArray, "someone called repo add scheduler")
     console.log("god called, someone finnaly reported, i hope")
-    res.send(JSON.stringify({message:"successfully scheduled"}))
+    res.send(JSON.stringify({ message: "successfully scheduled" }))
 })
 
 app.post('/schedule-repo-deploy', async (req, res) => {
@@ -49,13 +49,13 @@ app.post('/schedule-repo-deploy', async (req, res) => {
     let port = parseInt(data.port)
     let username = data.owner
     scheduledRepoDeployArray.push({ reponame: reponame, port: port, username: username })
-    res.send({message:"scheduled successfully"})
+    res.send({ message: "scheduled successfully" })
 })
 
 app.post('/schedule-repo-delete', async (req, res) => {
     let reponame = req.body.reponame
     res.send({ "message": "repo delete scheduler is on maintainence, call again later." })
-    res.send({message:"scheduled successfully"})
+    res.send({ message: "scheduled successfully" })
 })
 
 app.post('/schedule-user-add', async (req, res) => {
@@ -65,14 +65,14 @@ app.post('/schedule-user-add', async (req, res) => {
     let key = req.body.pub_key
 
     scheduledUserAddArray.push({ username: username, key: key })
-    res.send({message:"scheduled successfully"})
+    res.send({ message: "scheduled successfully" })
 })
 
 app.post('/schedule-user-delete', async (req, res) => {
     let username = req.body.username
 
     scheduledUserRemoveArray.push({ username: username })
-    res.send({message:"scheduled successfully"})
+    res.send({ message: "scheduled successfully" })
 
 })
 
@@ -81,7 +81,7 @@ app.post('/schedule-user-change', async (req, res) => {
     let key = req.body.pub_key
 
     scheduledUserChangeArray.push({ username: username, key: key })
-    res.send({message:"scheduled successfully"})
+    res.send({ message: "scheduled successfully" })
 
 })
 
@@ -173,10 +173,11 @@ setInterval(scheduleUserKeyAdd, 10000);
 
 setInterval(scheduleUserKeyChange, 10000);
 
-setInterval(function(){
-    RunScript("python3", ['./gitolite/push.py']); 
-    console.log("finished pushing changes to gitolite")}, 
-    60*1000)
+setInterval(function () {
+    RunScript("python3", ['./gitolite/push.py']);
+    console.log("finished pushing changes to gitolite")
+},
+    60 * 1000)
 app.listen(port, () => {
     console.log(`app most likely listening at http://localhost:${port}, If not you are in production.`)
 })
