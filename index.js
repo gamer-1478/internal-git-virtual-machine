@@ -14,7 +14,7 @@ const userCollection = db.collection('users');
 const repoCollection = db.collection('repos');
 
 const gitoliteConfigFile = '/home/tsadmin/gitolite-admin/conf/gitolite.conf'
-const gitoliteKeyDir = '/home/tsadmin/gitolite-admin/keydir/'
+const gitoliteKeyDir = '/home/tsadmin/gitolite-admin/keydir'
 
 let scheduledRepoAddArray = [];
 
