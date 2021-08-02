@@ -433,6 +433,7 @@ var CheckIfFileContainsRepoPromise = function (filelocation, reponame) {
     let linenumber = 1
     return new Promise(function (resolve, reject) {
         lineReader.eachLine(filelocation, async function (line, last, cb) {
+            console.log(line)
             if (line.trim().includes('repo') == true) {
                 line = line.replace('repo', '').trim()
                 if (reponame === line) {
