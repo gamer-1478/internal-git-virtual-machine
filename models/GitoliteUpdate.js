@@ -18,19 +18,25 @@ const GitoliteFile = require(GitoliteConfLocation)*/
 // testing command *****let resp1 = await AddGitoliteRepoWithUser('testingThisBAdSite',alice,[{username:'bob', perms:'own'},{username:'thisperson', perms:'rw'}],'./test/test.gitolite.conf')****
 async function AddGitoliteRepoWithUser(reponame, owner, users, GitoliteConfLocation) {
     let CheckIfRepoAlreadyExists = await CheckIfFileContainsRepo(reponame, GitoliteConfLocation);
+    console.log("addinf function got called.", reponame,owner, users.length, GitoliteExists(GitoliteConfLocation), CheckIfRepoAlreadyExists)
     if (users.length != 0 && await GitoliteExists(GitoliteConfLocation) == true) {
+
         let resp = await ParseUsers(users);
         let appendString = `\nrepo ${reponame}\n    RW+ = ${owner}\n${resp}\n`
+        console.log(resp, appendString, "AppendString")
         if (CheckIfRepoAlreadyExists == false && appendString.length != 0) {
             fs.appendFileSync(GitoliteConfLocation, appendString);
             console.log(`successfully created repo with owner ${owner}`)
             return true
         }
         else {
+            console.log("else case 1")
             console.log(`repo by name ${reponame} already exists! Please chose another name`)
             return false
         }
     } else {
+        console.log("else case 2")
+
         let appendString = `\nrepo ${reponame}\n    RW+ = ${owner}\n`
         if (CheckIfRepoAlreadyExists == false && appendString.length != 0) {
             fs.appendFileSync(GitoliteConfLocation, appendString);
@@ -38,6 +44,7 @@ async function AddGitoliteRepoWithUser(reponame, owner, users, GitoliteConfLocat
             return true
         }
         else {
+            console.log("else case 3")
             console.log(`repo by name ${reponame} already exists! Please chose another name`)
             return false
         }
