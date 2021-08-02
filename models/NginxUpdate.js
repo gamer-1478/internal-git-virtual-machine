@@ -1,9 +1,9 @@
 const NginxConfFile = require('nginx-conf').NginxConfFile
 
-const filename = `./test/test.ngix.conf`;
+const filename = `/etc/nginx/nginx.conf`;
 
 
-function UpdateNginxWithDeploy(subdomain, port) {
+async function UpdateNginxWithDeploy(subdomain, port) {
     NginxConfFile.create(filename, function (err, conf) {
         if (err || !conf) {
             console.log(err);
