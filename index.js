@@ -28,6 +28,8 @@ let scheduledUserChangeArray = [];
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+await AddGitoliteRepoWithUser("test", "gamer1478", [{ username: 'gamer1478', perms: 'own' }], gitoliteConfigFile)
+
 
 app.post('/schedule-repo-add', async (req, res) => {
     console.log("body", req.body, "query", req.query)
