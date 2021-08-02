@@ -14,7 +14,7 @@ const userCollection = db.collection('users');
 const repoCollection = db.collection('repos');
 
 const gitoliteConfigFile = '/home/tsadmin/gitolite-admin/conf/gitolite.conf'
-
+const gitoliteKeyDir = '/home/tsadmin/gitolite-admin/keydir/'
 let scheduledRepoAddArray = [];
 
 let scheduledRepoDeployArray = [];
@@ -85,7 +85,6 @@ app.post('/schedule-user-change', async (req, res) => {
 app.get('/', async (req, res) => {
     console.log("console.log is working atleast")
     let resp = AddGitoliteRepoWithUser("test", "gamerjerkface", [{ username: 'gamer1478', perms: 'own' }], gitoliteConfigFile)
-    console.log(await resp)
     res.send(await resp)
 })
 
@@ -122,7 +121,7 @@ const scheduleRepoAdd = async function () {
 const scheduleUserKeyRemove = async function () {
     if (scheduledUserRemoveArray.length != 0) {
         for (const element of scheduledUserRemoveArray) {
-            await RemoveGitoliteUser(element.username, element.key, gitoliteConfigFile)
+            await RemoveGitoliteUser(element.username, element.key, gitoliteKeyDir)
             var index = scheduledUserRemoveArray.indexOf(element);
             if (index > -1) {
                 scheduledUserRemoveArray.splice(index, 1);
@@ -135,7 +134,7 @@ const scheduleUserKeyRemove = async function () {
 const scheduleUserKeyAdd = async function () {
     if (scheduledUserAddArray.length != 0) {
         for (const element of scheduledUserAddArray) {
-            await AddGitoliteUser(element.username, element.key, gitoliteConfigFile)
+            await AddGitoliteUser(element.username, element.key, gitoliteKeyDir)
             var index = scheduledUserAddArray.indexOf(element);
             if (index > -1) {
                 scheduledUserAddArray.splice(index, 1);
@@ -149,7 +148,7 @@ const scheduleUserKeyAdd = async function () {
 const scheduleUserKeyChange = async function () {
     if (scheduledUserChangeArray.length != 0) {
         for (const element of scheduledUserChangeArray) {
-            await ChangeGitoliteUser(element.username, element.key, gitoliteConfigFile)
+            await ChangeGitoliteUser(element.username, element.key, gitoliteKeyDir)
             var index = scheduledUserChangeArray.indexOf(element);
             if (index > -1) {
                 scheduledUserChangeArray.splice(index, 1);

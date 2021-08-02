@@ -17,7 +17,6 @@ takes in who is the owner, They get RW+ perm and the reponame
 const GitoliteFile = require(GitoliteConfLocation)*/
 // testing command *****let resp1 = await AddGitoliteRepoWithUser('testingThisBAdSite',alice,[{username:'bob', perms:'own'},{username:'thisperson', perms:'rw'}],'./test/test.gitolite.conf')****
 async function AddGitoliteRepoWithUser(reponame, owner, users, GitoliteConfLocation) {
-    console.log("adding function got called.", reponame, owner, users, GitoliteConfLocation)
     let CheckIfRepoAlreadyExists = await CheckIfFileContainsRepo(reponame, GitoliteConfLocation);
     console.log("addinf function got called.", reponame, owner, users, GitoliteExists(GitoliteConfLocation), CheckIfRepoAlreadyExists)
     if (users.length != 0 && await GitoliteExists(GitoliteConfLocation) == true) {
@@ -433,7 +432,6 @@ var CheckIfFileContainsRepoPromise = function (filelocation, reponame) {
     let linenumber = 1
     return new Promise(function (resolve, reject) {
         lineReader.eachLine(filelocation, async function (line, last, cb) {
-            console.log(line)
             if (line.trim().includes('repo') == true) {
                 line = line.replace('repo', '').trim()
                 if (reponame === line) {
