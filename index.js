@@ -166,7 +166,7 @@ setInterval(scheduleUserKeyAdd, 10000);
 
 setInterval(scheduleUserKeyChange, 10000);
 
-setInterval(function(){RunScript("python",['./gitolite/push.py'])}, 60*1000)
+setInterval(function(){RunScript("python",['./gitolite/push.py']); console.log("finished pushing changes to gitolite")}, 60*1000)
 app.listen(port, () => {
     console.log(`app most likely listening at http://localhost:${port}, If not you are in production.`)
 })
