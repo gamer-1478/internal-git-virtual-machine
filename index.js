@@ -30,10 +30,9 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/schedule-repo-add', async (req, res) => {
     let reponame = req.body.reponame
     let owner = req.body.owner
-    let data = await repoCollection.doc(reponame).get()
-    data = data.data()
-    let port = parseInt(data.port)
+    let port = req.body.port
     scheduledRepoAddArray.push({ reponame: reponame, owner: owner, port: port })
+    res.send({message:"scheduled successfully"})
 })
 
 app.post('/schedule-repo-deploy', async (req, res) => {
@@ -43,12 +42,13 @@ app.post('/schedule-repo-deploy', async (req, res) => {
     let port = parseInt(data.port)
     let username = data.owner
     scheduledRepoDeployArray.push({ reponame: reponame, port: port, username: username })
-
+    res.send({message:"scheduled successfully"})
 })
 
 app.post('/schedule-repo-delete', async (req, res) => {
     let reponame = req.body.reponame
     res.send({ "message": "repo delete scheduler is on maintainence, call again later." })
+    res.send({message:"scheduled successfully"})
 })
 
 app.post('/schedule-user-add', async (req, res) => {
@@ -56,12 +56,15 @@ app.post('/schedule-user-add', async (req, res) => {
     let key = req.body.pub_key
 
     scheduledUserAddArray.push({ username: username, key: key })
+    res.send({message:"scheduled successfully"})
 })
 
 app.post('/schedule-user-delete', async (req, res) => {
     let username = req.body.username
 
     scheduledUserRemoveArray.push({ username: username })
+    res.send({message:"scheduled successfully"})
+
 })
 
 app.post('/schedule-user-change', async (req, res) => {
@@ -69,6 +72,8 @@ app.post('/schedule-user-change', async (req, res) => {
     let key = req.body.pub_key
 
     scheduledUserChangeArray.push({ username: username, key: key })
+    res.send({message:"scheduled successfully"})
+
 })
 
 app.get('/', async (req, res) => {
