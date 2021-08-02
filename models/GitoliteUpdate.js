@@ -17,9 +17,9 @@ takes in who is the owner, They get RW+ perm and the reponame
 const GitoliteFile = require(GitoliteConfLocation)*/
 // testing command *****let resp1 = await AddGitoliteRepoWithUser('testingThisBAdSite',alice,[{username:'bob', perms:'own'},{username:'thisperson', perms:'rw'}],'./test/test.gitolite.conf')****
 async function AddGitoliteRepoWithUser(reponame, owner, users, GitoliteConfLocation) {
-    console.log("adding function got called.")
+    console.log("adding function got called.", reponame, owner, users, GitoliteConfLocation)
     let CheckIfRepoAlreadyExists = await CheckIfFileContainsRepo(reponame, GitoliteConfLocation);
-    console.log("addinf function got called.", reponame,owner, users, GitoliteExists(GitoliteConfLocation), CheckIfRepoAlreadyExists)
+    console.log("addinf function got called.", reponame, owner, users, GitoliteExists(GitoliteConfLocation), CheckIfRepoAlreadyExists)
     if (users.length != 0 && await GitoliteExists(GitoliteConfLocation) == true) {
 
         let resp = await ParseUsers(users);
@@ -152,7 +152,7 @@ async function RemoveGitoliteUser(username, GitoliteKeydirLocation) {
     return true
 }
 
-async function ChangeGitoliteUser(username, key,  GitoliteKeydirLocation) {
+async function ChangeGitoliteUser(username, key, GitoliteKeydirLocation) {
     fs.unlinkSync(GitoliteKeydirLocation + '/' + username + '.pub')
     console.log("removed user", username, 'to website')
 
@@ -383,9 +383,9 @@ async function RemoveExistingGitoliteRepo(reponame, repoline, GitoliteConfLocati
         if (value1.hasOwnProperty('end') && value1 != false) {
             let end = value1.end;
             var data = fs.readFileSync(GitoliteConfLocation).toString().split("\n")
-            while(end != repoline-1){
+            while (end != repoline - 1) {
                 data.splice(end - 1, 1);
-                end = end -1
+                end = end - 1
             }
             data = await data.join("\n");
             fs.writeFileSync(GitoliteConfLocation, data, function (err) {
@@ -414,19 +414,22 @@ async function RemoveExistingGitoliteRepo(reponame, repoline, GitoliteConfLocati
 
 // checks if the gitolite file contains repo already
 async function CheckIfFileContainsRepo(reponame, GitoliteConfLocation) {
-    let value1 = null;
-    await CheckIfFileContainsRepoPromise(GitoliteConfLocation, reponame).then(function (value) {
-        value1 = value
+    console.log("CheckIfFileContainsRepo got callled")
+    let value1 = await CheckIfFileContainsRepoPromise(GitoliteConfLocation, reponame).then(function (value) {
+        return value
     }).catch(function (err) {
         console.error(err);
     });
-    if (value1 == true) {
+    console.log("awaited value 1", await value1)
+    if (await value1 == true) {
         return (true)
     } else {
         return (false)
     }
 }// The promise var for the above function 
 var CheckIfFileContainsRepoPromise = function (filelocation, reponame) {
+    console.log("CheckIfFileContainsRepoPromise got callled")
+
     let linenumber = 1
     return new Promise(function (resolve, reject) {
         lineReader.eachLine(filelocation, async function (line, last, cb) {
