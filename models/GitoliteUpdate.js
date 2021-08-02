@@ -152,6 +152,7 @@ async function RemoveGitoliteUser(username, GitoliteKeydirLocation) {
 }
 
 async function ChangeGitoliteUser(username, key, GitoliteKeydirLocation) {
+    console.log(GitoliteKeydirLocation)
     fs.unlinkSync(GitoliteKeydirLocation + '/' + username + '.pub')
     console.log("removed user", username, 'to website')
 

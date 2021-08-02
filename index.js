@@ -59,6 +59,8 @@ app.post('/schedule-repo-delete', async (req, res) => {
 })
 
 app.post('/schedule-user-add', async (req, res) => {
+    console.log("body", req.body, "query", req.query)
+
     let username = req.body.username
     let key = req.body.pub_key
 
@@ -121,7 +123,7 @@ const scheduleUserKeyRemove = async function () {
     if (scheduledUserRemoveArray.length != 0) {
         for (const element of scheduledUserRemoveArray) {
             console.log(element)
-            await RemoveGitoliteUser(element.username, element.key, gitoliteKeyDir)
+            await RemoveGitoliteUser(element.username, gitoliteKeyDir)
             var index = scheduledUserRemoveArray.indexOf(element);
             if (index > -1) {
                 scheduledUserRemoveArray.splice(index, 1);
