@@ -28,7 +28,6 @@ let scheduledUserChangeArray = [];
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-AddGitoliteRepoWithUser("test", "gamer1478", [{ username: 'gamer1478', perms: 'own' }], gitoliteConfigFile)
 
 
 app.post('/schedule-repo-add', async (req, res) => {
@@ -85,7 +84,8 @@ app.post('/schedule-user-change', async (req, res) => {
 
 app.get('/', async (req, res) => {
     console.log("console.log is working atleast")
-    res.send("hello")
+    let resp = await AddGitoliteRepoWithUser("test", "gamer1478", [{ username: 'gamer1478', perms: 'own' }], gitoliteConfigFile)
+    res.send(await resp)
 })
 
 const scheduleRepoDeploy = async function () {
@@ -106,8 +106,9 @@ const scheduleRepoAdd = async function () {
         console.log("got a repo to push, don't disturb me i have work!")
         for (const element of scheduledRepoAddArray) {
             console.log(scheduledRepoAddArray)
-            await AddGitoliteRepoWithUser(element.reponame, element.owner, [{ username: 'gamer1478', perms: 'own' }], gitoliteConfigFile)
-            await UpdateNginxWithDeploy(element.reponame, element.port)
+            let resp = await AddGitoliteRepoWithUser(element.reponame, element.owner, [{ username: 'gamer1478', perms: 'own' }], gitoliteConfigFile)
+            let resp1 = await UpdateNginxWithDeploy(element.reponame, element.port)
+            console.log(await resp, await resp1)
             var index = scheduledRepoAddArray.indexOf(element);
             if (index > -1) {
                 scheduledRepoAddArray.splice(index, 1);
