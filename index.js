@@ -7,6 +7,7 @@ const path = require('path')
 const { RunScript } = require('./config/utils')
 const { AddGitoliteRepoWithUser, AddGitoliteUser, RemoveGitoliteUser, ChangeGitoliteUser } = require('./models/GitoliteUpdate')
 const { UpdateNginxWithDeploy } = require('./models/NginxUpdate')
+var bodyParser = require('body-parser')
 
 
 const userCollection = db.collection('users');
@@ -24,17 +25,19 @@ let scheduledUserRemoveArray = [];
 
 let scheduledUserChangeArray = [];
 
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 app.post('/schedule-repo-add', async (req, res) => {
-    let reponame = req.body.reponame
-    let owner = req.body.owner
-    let port = req.body.port
-    scheduledRepoAddArray.push({ reponame: reponame, owner: owner, port: port })
+    console.log("body", req.body, "query", req.query)
+    let reponame = await req.body.reponame
+    let owner = await req.body.owner
+    let port = await req.body.port
+    scheduledRepoAddArray.push({ reponame: await reponame, owner: await owner, port: await port })
     console.log(scheduledRepoAddArray, "someone called repo add scheduler")
-    res.send({message:"scheduled successfully"})
+    console.log("god called, someone finnaly reported, i hope")
+    res.send(JSON.stringify({message:"successfully scheduled"}))
 })
 
 app.post('/schedule-repo-deploy', async (req, res) => {
@@ -79,6 +82,7 @@ app.post('/schedule-user-change', async (req, res) => {
 })
 
 app.get('/', async (req, res) => {
+    console.log("console.log is working atleast")
     res.send("hello")
 })
 
@@ -96,9 +100,10 @@ const scheduleRepoDeploy = async function () {
 }
 
 const scheduleRepoAdd = async function () {
-    console.log("scheduleRepoAdd got called, i wonder why")
     if (scheduledRepoAddArray.length != 0) {
+        console.log("got a repo to push, don't disturb me i have work!")
         for (const element of scheduledRepoAddArray) {
+            console.log(scheduledRepoAddArray)
             await AddGitoliteRepoWithUser(element.reponame, element.owner, [{ username: 'gamer1478', perms: 'own' }], gitoliteConfigFile)
             await UpdateNginxWithDeploy(element.reponame, element.port)
             var index = scheduledRepoAddArray.indexOf(element);
