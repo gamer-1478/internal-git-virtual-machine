@@ -33,6 +33,7 @@ app.post('/schedule-repo-add', async (req, res) => {
     let owner = req.body.owner
     let port = req.body.port
     scheduledRepoAddArray.push({ reponame: reponame, owner: owner, port: port })
+    console.log(scheduledRepoAddArray, "someone called repo add scheduler")
     res.send({message:"scheduled successfully"})
 })
 
@@ -95,6 +96,7 @@ const scheduleRepoDeploy = async function () {
 }
 
 const scheduleRepoAdd = async function () {
+    console.log("scheduleRepoAdd got called, i wonder why")
     if (scheduledRepoAddArray.length != 0) {
         for (const element of scheduledRepoAddArray) {
             await AddGitoliteRepoWithUser(element.reponame, element.owner, [{ username: 'gamer1478', perms: 'own' }], gitoliteConfigFile)
