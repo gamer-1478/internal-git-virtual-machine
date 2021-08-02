@@ -21,7 +21,7 @@ function UpdateNginxWithDeploy(subdomain, port) {
         conf.nginx.http?.[0]._add('server');
         const whichServer = conf.nginx.http?.[0].server.length - 1
         conf.nginx.http?.[0].server?.[whichServer]._add('listen', '80');
-        conf.nginx.http?.[0].server?.[whichServer]._add('server_name', subdomain+'.domain.com');
+        conf.nginx.http?.[0].server?.[whichServer]._add('server_name', subdomain+'.displicare.us');
         conf.nginx.http?.[0].server?.[whichServer]._add('location', '/');
         conf.nginx.http?.[0].server?.[whichServer].location?.[0]._add('proxy_pass', 'http://localhost:'+port);
         

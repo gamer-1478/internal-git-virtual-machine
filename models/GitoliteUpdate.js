@@ -20,7 +20,7 @@ async function AddGitoliteRepoWithUser(reponame, owner, users, GitoliteConfLocat
     let CheckIfRepoAlreadyExists = await CheckIfFileContainsRepo(reponame, GitoliteConfLocation);
     if (users.length != 0 && await GitoliteExists(GitoliteConfLocation) == true) {
         let resp = await ParseUsers(users);
-        let appendString = `\n\nrepo ${reponame}\n    RW+ = ${owner}\n${resp}`
+        let appendString = `\nrepo ${reponame}\n    RW+ = ${owner}\n${resp}\n`
         if (CheckIfRepoAlreadyExists == false && appendString.length != 0) {
             fs.appendFileSync(GitoliteConfLocation, appendString);
             console.log(`successfully created repo with owner ${owner}`)
@@ -31,7 +31,7 @@ async function AddGitoliteRepoWithUser(reponame, owner, users, GitoliteConfLocat
             return false
         }
     } else {
-        let appendString = `\n\nrepo ${reponame}\n    RW+ = ${owner}`
+        let appendString = `\nrepo ${reponame}\n    RW+ = ${owner}\n`
         if (CheckIfRepoAlreadyExists == false && appendString.length != 0) {
             fs.appendFileSync(GitoliteConfLocation, appendString);
             console.log(`successfully created repo with owner ${owner}`)
@@ -131,16 +131,26 @@ async function RemoveGitoliteRepo(reponame, GitoliteConfLocation) {
 }
 
 //add a new user to giolite directory
-function AddGitoliteUser(username, key, GitoliteKeydirLocation) {
+async function AddGitoliteUser(username, key, GitoliteKeydirLocation) {
     fs.writeFileSync(GitoliteKeydirLocation + '/' + username + '.pub', key.trim())
     console.log("added user", username, 'to website')
     return true
 }
 
 //remove a Gitolite user
-function RemoveGitoliteUser(username, GitoliteKeydirLocation) {
+async function RemoveGitoliteUser(username, GitoliteKeydirLocation) {
     fs.unlinkSync(GitoliteKeydirLocation + '/' + username + '.pub')
     console.log("removed user", username, 'to website')
+    return true
+}
+
+async function ChangeGitoliteUser(username, key,  GitoliteKeydirLocation) {
+    fs.unlinkSync(GitoliteKeydirLocation + '/' + username + '.pub')
+    console.log("removed user", username, 'to website')
+
+    fs.writeFileSync(GitoliteKeydirLocation + '/' + username + '.pub', key.trim())
+    console.log("added user", username, 'to website')
+
     return true
 }
 
@@ -473,4 +483,4 @@ var CheckIfFileContainsRepoPromiseWithLineNumber = function (filelocation, repon
 }
 
 //export models
-module.exports = { AddGitoliteRepoWithUser, RemoveGitoliteRepo, AddGitoliteUser, AddUsersToExistingGitoliteRepo, RemoveGitoliteUser, RemoveUserInGitoliteRepo, ChangeUserPermsInGitoliteRepo }
+module.exports = { ChangeGitoliteUser, AddGitoliteRepoWithUser, RemoveGitoliteRepo, AddGitoliteUser, AddUsersToExistingGitoliteRepo, RemoveGitoliteUser, RemoveUserInGitoliteRepo, ChangeUserPermsInGitoliteRepo }
