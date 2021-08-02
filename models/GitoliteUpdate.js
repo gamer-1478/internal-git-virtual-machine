@@ -17,8 +17,9 @@ takes in who is the owner, They get RW+ perm and the reponame
 const GitoliteFile = require(GitoliteConfLocation)*/
 // testing command *****let resp1 = await AddGitoliteRepoWithUser('testingThisBAdSite',alice,[{username:'bob', perms:'own'},{username:'thisperson', perms:'rw'}],'./test/test.gitolite.conf')****
 async function AddGitoliteRepoWithUser(reponame, owner, users, GitoliteConfLocation) {
+    console.log("adding function got called.")
     let CheckIfRepoAlreadyExists = await CheckIfFileContainsRepo(reponame, GitoliteConfLocation);
-    console.log("addinf function got called.", reponame,owner, users.length, GitoliteExists(GitoliteConfLocation), CheckIfRepoAlreadyExists)
+    console.log("addinf function got called.", reponame,owner, users, GitoliteExists(GitoliteConfLocation), CheckIfRepoAlreadyExists)
     if (users.length != 0 && await GitoliteExists(GitoliteConfLocation) == true) {
 
         let resp = await ParseUsers(users);
