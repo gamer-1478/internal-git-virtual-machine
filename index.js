@@ -92,7 +92,7 @@ app.get('/', async (req, res) => {
 const scheduleRepoDeploy = async function () {
     if (scheduledRepoDeployArray.length != 0) {
         for (const element of scheduledRepoDeployArray) {
-            RunScript("python", ['./models/deploy.py', element.reponame, element.port, element.username])
+            RunScript("python3", ['./models/deploy.py', element.reponame, element.port, element.username])
             var index = scheduledRepoDeployArray.indexOf(element);
             if (index > -1) {
                 scheduledRepoDeployArray.splice(index, 1);
