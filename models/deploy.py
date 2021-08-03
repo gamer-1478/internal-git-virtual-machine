@@ -24,7 +24,7 @@ subprocess.Popen("mkdir "+username, cwd="/home/tsadmin/deploys/", shell=True) #/
 time.sleep(2)
 subprocess.Popen("git clone "+node_dir, cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
 time.sleep(2)
-subprocess.Popen("git checkout main", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
+subprocess.Popen("git checkout " +node_repo"/main", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
 time.sleep(2)
 subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
 time.sleep(15)
