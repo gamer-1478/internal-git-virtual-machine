@@ -11,7 +11,7 @@ n = len(sys.argv)
 node_repo = str(sys.argv[1])
 node_repo = node_repo.replace("'","")
 
-node_dir = "git@git.displicare.us:"+node_repo #/home/git/gitolite/repo/
+node_dir = "/home/git/repositories/"+node_repo+".git"#/home/git/gitolite/repo/
 print(node_dir)
 port = str(sys.argv[2])
 port = port.replace("'","")
