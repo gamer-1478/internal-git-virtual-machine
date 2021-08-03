@@ -28,5 +28,5 @@ subprocess.Popen("git checkout main", cwd="/home/tsadmin/deploys/"+username+'/'+
 time.sleep(5)
 subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
 time.sleep(15)
-subprocess.Popen('set PORT='+port+" && " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
+subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
 time.sleep(5)
