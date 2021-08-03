@@ -20,6 +20,8 @@ username = str(sys.argv[3])
 username = username.replace("'","")
 
 print(node_dir, port)
+subprocess.Popen("mdir "+"/home/tsadmin/deploys/"+username, cwd="/home/tsadmin/deploys/", shell=True) #/home/displicare/username
+
 subprocess.Popen("git clone "+node_dir, cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
 time.sleep(2)
 subprocess.Popen("git checkout main", cwd="/home/tsadmin/deploys/"+username+node_repo, shell=True)
