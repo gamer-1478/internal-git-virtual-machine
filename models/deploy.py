@@ -12,7 +12,7 @@ node_repo = str(sys.argv[1])
 node_repo = node_repo.replace("'","")
 
 node_dir = "git@git.displicare.us:"+node_repo #/home/git/gitolite/repo/
-
+console.log(node_dir)
 port = str(sys.argv[2])
 port = port.replace("'","")
 
