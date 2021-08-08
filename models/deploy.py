@@ -55,9 +55,9 @@ if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
     node = subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(5)
     nodefile = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json", 'a+')
-    nodejson = json.load(nodefile)
-    print(nodejson)
-    nodefile.write(nodejson)
+    with open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json") as f:
+        data = json.load(f)
+        print(data)
 else:
     b = subprocess.Popen("git clone "+node_dir, cwd="/home/tsadmin/deploys/"+username, shell=True, stdout=logs, stderr=logs)
     print(b.poll())
@@ -70,9 +70,9 @@ else:
     node = subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(5)
     nodefile = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json", 'a+')
-    nodejson = json.load(nodefile)
-    print(nodejson)
-    nodefile.write(nodejson)
+    with open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json") as f:
+        data = json.load(f)
+        print(data)
 
 nodefile.close()
 logs.close()
