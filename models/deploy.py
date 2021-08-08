@@ -20,6 +20,9 @@ port = port.replace("'","")
 username = str(sys.argv[3])
 username = username.replace("'","")
 
+checkout = str(sys.argv[4])
+checkout = checkout.replace("'","")
+
 print(node_dir, port)
 if not os.path.exists('/home/tsadmin/deploys'):
     subprocess.Popen("mkdir deploys", cwd="/home/tsadmin/", shell=True) #/home/displicare/username
@@ -44,7 +47,7 @@ if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
     print(b.poll())
     if b.poll() != None:
         time.sleep(2)
-        subprocess.Popen("git checkout main", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
+        subprocess.Popen("git checkout "+checkout, cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
         time.sleep(3)
     subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(10)
@@ -59,7 +62,7 @@ else:
     print(b.poll())
     if b.poll() != None:
         time.sleep(2)
-        subprocess.Popen("git checkout main", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
+        subprocess.Popen("git checkout "+checkout, cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
         time.sleep(3)
     subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(10)
