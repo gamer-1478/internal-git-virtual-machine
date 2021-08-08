@@ -44,10 +44,10 @@ async function RunScript(command = '', args = [], logsUsername = 'dustbin', appn
 
 async function deployApp(appname, username, port, checkout = 'main') {
     console.log("deployAppInUtlisGotCalledWith", appname, username, port, checkout)
-    let resp1 = await RunScript('sudo rm', ['-r', '-f', `${appname}`], '', '', false, `/home/tsadmin/deploys/${username}/`);
+    let resp1 = await RunScript('sudo rm -rf', [`${appname}`], '', '', false, `/home/tsadmin/deploys/${username}/`);
     console.log("ran sudo rm")
     if (fs.existsSync(`/home/tsadmin/deploys/${username}`)) {
-        await RunScript('sudo mkdir', ['-p', `${username}`], username, appname, true, `/home/tsadmin/deploys/`);
+        await RunScript('sudo mkdir -p', [`${username}`], username, appname, true, `/home/tsadmin/deploys/`);
         console.log("ran sudo mkdir for username")
     }
     let resp2 = await RunScript('sudo git', ['clone', `/home/git/repositories/${appname}.git`], username, appname, true, `/home/tsadmin/deploys/${username}/`)
