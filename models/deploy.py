@@ -30,20 +30,25 @@ if not os.path.exists('/home/tsadmin/deploys/'+username):
 if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
     a = subprocess.Popen("sudo rm -rf "+node_repo, cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
     if a.poll() != None:
+        time.sleep(1)
         b = subprocess.Popen("git clone "+node_dir, cwd="/home/tsadmin/deploys/"+username, shell=True)
         if b.poll() != None:
+            time.sleep(2)
             subprocess.Popen("git checkout main", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
-            time.sleep(5)
+            time.sleep(3)
             c = subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
             if c.poll() != None:
+                time.sleep(2)
                 subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
                 time.sleep(5)
 else:
     b = subprocess.Popen("git clone "+node_dir, cwd="/home/tsadmin/deploys/"+username, shell=True)
     if b.poll() != None:
+        time.sleep(2)
         subprocess.Popen("git checkout main", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
-        time.sleep(5)
+        time.sleep(3)
         c = subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
         if c.poll() != None:
+            time.sleep(2)
             subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
             time.sleep(5)
