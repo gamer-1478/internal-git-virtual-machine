@@ -5,6 +5,8 @@ from subprocess import Popen
 import os
 from os import path
 import time
+import json
+
 # total arguments
 n = len(sys.argv)
 
@@ -46,8 +48,12 @@ if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
         time.sleep(3)
     subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(10)
-    subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
+    node = subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(5)
+    nodefile = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json", 'a+')
+    nodejson = json.load(nodefile)
+    nodejson['pid'] = node.pid
+    nodefile.write(nodejson)
 else:
     b = subprocess.Popen("git clone "+node_dir, cwd="/home/tsadmin/deploys/"+username, shell=True, stdout=logs, stderr=logs)
     print(b.poll())
@@ -57,7 +63,12 @@ else:
         time.sleep(3)
     subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(10)
-    subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
+    node = subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(5)
+    nodefile = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json", 'a+')
+    nodejson = json.load(nodefile)
+    nodejson['pid'] = node.pid
+    nodefile.write(nodejson)
 
+nodefile.close()
 logs.close()
