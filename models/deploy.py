@@ -1,3 +1,4 @@
+!#/usr/bin/python3
 import sys
 import time
 import subprocess
@@ -55,7 +56,7 @@ if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
     time.sleep(5)
     nodefile = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json", 'a+')
     nodejson = json.load(nodefile)
-    nodejson['pid'] = node.pid
+    print(nodejson)
     nodefile.write(nodejson)
 else:
     b = subprocess.Popen("git clone "+node_dir, cwd="/home/tsadmin/deploys/"+username, shell=True, stdout=logs, stderr=logs)
@@ -70,7 +71,7 @@ else:
     time.sleep(5)
     nodefile = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json", 'a+')
     nodejson = json.load(nodefile)
-    nodejson['pid'] = node.pid
+    print(nodejson)
     nodefile.write(nodejson)
 
 nodefile.close()
