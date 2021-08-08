@@ -39,10 +39,10 @@ if os.path.isfile('/home/tsadmin/deploys/'+username+'/'+node_repo):
                 time.sleep(5)
 else:
     b = subprocess.Popen("git clone "+node_dir, cwd="/home/tsadmin/deploys/"+username, shell=True)
-        if b.poll() != None:
-            subprocess.Popen("git checkout main", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
+    if b.poll() != None:
+        subprocess.Popen("git checkout main", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
+        time.sleep(5)
+        c = subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
+        if c.poll() != None:
+            subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
             time.sleep(5)
-            c = subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
-            if c.poll() != None:
-                subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
-                time.sleep(5)
