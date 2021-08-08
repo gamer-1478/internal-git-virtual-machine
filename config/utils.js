@@ -36,11 +36,11 @@ async function RunScript(command = '', args = [], logsUsername = 'dustbin', appn
 
 async function deployApp(appname, username, port, checkout = 'main') {
 
-    if (!fs.existsSync(`/home/tsadmin/deploys/${logsUsername}/${appname}.txt`)) {
-        fs.appendFileSync(`/home/tsadmin/deploys/${logsUsername}/${appname}.txt`, "");
+    if (!fs.existsSync(`/home/tsadmin/deploys/${username}/${appname}.txt`)) {
+        fs.appendFileSync(`/home/tsadmin/deploys/${username}/${appname}.txt`, "");
     }
-    if (!fs.existsSync(`/home/tsadmin/deploys/${logsUsername}/${appname}.json`)) {
-        fs.appendFileSync(`/home/tsadmin/deploys/${logsUsername}/${appname}.json`, JSON.stringify({ appname: appname, port: port, checkout: checkout, username: username, pid: 0 }));
+    if (!fs.existsSync(`/home/tsadmin/deploys/${username}/${appname}.json`)) {
+        fs.appendFileSync(`/home/tsadmin/deploys/${username}/${appname}.json`, JSON.stringify({ appname: appname, port: port, checkout: checkout, username: username, pid: 0 }));
     }
 
     RunScript('python3', ['deploy.py', appname, port, username, checkout], username, appname, true, '/home/tsadmin/internal-git-virtual-machine/models')
