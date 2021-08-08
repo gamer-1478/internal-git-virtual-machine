@@ -43,7 +43,7 @@ logs = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".txt", 'a+')
 with open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json") as f:
     data = json.load(f)
     if(data['pid'] != 0):
-        subprocess.Popen("sudo kill "+data['pid'], cwd="/home/tsadmin/deploys/"+username, shell=True, stdout=logs, stderr=logs) #/home/displicare/username
+        subprocess.Popen("sudo kill "+str(data['pid']), cwd="/home/tsadmin/deploys/"+username, shell=True, stdout=logs, stderr=logs) #/home/displicare/username
 time.sleep(2)
 
 if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
