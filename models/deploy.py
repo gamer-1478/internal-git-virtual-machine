@@ -29,6 +29,7 @@ if not os.path.exists("/home/tsadmin/deploys/"+username+'/'+"displicare-logs"):
     subprocess.Popen("mkdir displicare-logs", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
 
 subprocess.Popen("sudo rm -f "+node_repo+".txt", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
+time.sleep(1)
 subprocess.Popen("sudo touch "+node_repo+".txt", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
 time.sleep(2)
 
