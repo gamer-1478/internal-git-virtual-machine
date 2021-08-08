@@ -45,15 +45,20 @@ async function RunScript(command = '', args = [], logsUsername = 'dustbin', appn
 async function deployApp(appname, username, port, checkout = 'main') {
     console.log("deployAppInUtlisGotCalledWith", appname, username, port, checkout)
     let resp1 = await RunScript('sudo rm', ['-r', '-f', `${appname}`], '', '', false, `/home/tsadmin/deploys/${username}/`);
-    console.log(resp1)
+    console.log("ran sudo rm")
     if (fs.existsSync(`/home/tsadmin/deploys/${username}`)) {
         await RunScript('sudo mkdir', ['-p', `${username}`], username, appname, true, `/home/tsadmin/deploys/`);
+        console.log("ran sudo mkdir for username")
     }
-    resp1 = await RunScript('sudo git', ['clone', `/home/git/repositories/${appname}.git`], username, appname, true, `/home/tsadmin/deploys/${username}/`)
-    resp1 = await RunScript('mkdir', ['-p', `/home/tsadmin/deploys/${username}/${appname}/displicare-logs`], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}/`);
-    resp1 = await RunScript('sudo git', ['checkout', checkout], username, appname, true, `/home/tsadmin/deploys/${username}/`)
-    resp1 = await RunScript('npm', ['install'], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
-    console.log(resp1)
+    let resp2 = await RunScript('sudo git', ['clone', `/home/git/repositories/${appname}.git`], username, appname, true, `/home/tsadmin/deploys/${username}/`)
+    console.log("ran sudo git clone")
+    let resp3 = await RunScript('sudo mkdir', ['-p', `/home/tsadmin/deploys/${username}/${appname}/displicare-logs`], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}/`);
+    console.log("ran sudo mkdir for displicare logs")
+    let resp4 = await RunScript('sudo git', ['checkout', checkout], username, appname, true, `/home/tsadmin/deploys/${username}/`)
+    console.log("ran sudo git checkout on main")
+    let resp5 = await RunScript('npm', ['install'], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
+    console.log("ran sudo npm install")
+    console.log(resp1, resp2, resp3, resp4, resp5)
     RunScript('PORT=' + port + " ", ["npm start"], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
     return true;
 }
