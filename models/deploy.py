@@ -31,29 +31,29 @@ if not os.path.exists("/home/tsadmin/deploys/"+username+'/'+"displicare-logs"):
 subprocess.Popen("sudo rm -f "+node_repo+".logs.txt", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
 subprocess.Popen("sudo touch "+node_repo+".logs.txt", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
 
-logs = "/home/tsadmin/deploys/"+username+"/"+node_repo+".logs.txt"
+logs = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".logs.txt","a+")
 if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
-    subprocess.Popen("sudo rm -rf "+node_repo + " &>> "+logs, cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
+    subprocess.Popen("sudo rm -rf "+node_repo, cwd="/home/tsadmin/deploys/"+username, shell=True, stdout=logs, stderr=logs) #/home/displicare/username
     time.sleep(2)
-    b = subprocess.Popen("git clone "+node_dir+ " &>> "+logs, cwd="/home/tsadmin/deploys/"+username, shell=True)
+    b = subprocess.Popen("git clone "+node_dir, cwd="/home/tsadmin/deploys/"+username, shell=True, stdout=logs, stderr=logs)
     time.sleep(2)
     print(b.poll())
     if b.poll() != None:
         time.sleep(2)
-        subprocess.Popen("git checkout main"+ " &>> "+logs, cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
+        subprocess.Popen("git checkout main", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
         time.sleep(3)
-    subprocess.Popen("npm install"+ " &>> "+logs, cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
+    subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(10)
-    subprocess.Popen('PORT='+port+" " + "npm start"+ " &>> "+logs, cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
+    subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(5)
 else:
-    b = subprocess.Popen("git clone "+node_dir+ " &>> "+logs, cwd="/home/tsadmin/deploys/"+username, shell=True)
+    b = subprocess.Popen("git clone "+node_dir, cwd="/home/tsadmin/deploys/"+username, shell=True, stdout=logs, stderr=logs)
     print(b.poll())
     if b.poll() != None:
         time.sleep(2)
-        subprocess.Popen("git checkout main"+ " &>> "+logs, cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
+        subprocess.Popen("git checkout main", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
         time.sleep(3)
-    subprocess.Popen("npm install"+ " &>> "+logs, cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
+    subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(10)
-    subprocess.Popen('PORT='+port+" " + "npm start"+ " &>> "+logs, cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True)
+    subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(5)
