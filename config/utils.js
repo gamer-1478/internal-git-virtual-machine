@@ -56,7 +56,7 @@ async function deployApp(appname, username, port, checkout = 'main') {
     console.log("ran sudo mkdir for displicare logs")
     let resp4 = await RunScript('sudo git', ['checkout', checkout], username, appname, true, `/home/tsadmin/deploys/${username}/`)
     console.log("ran sudo git checkout on main")
-    let resp5 = await RunScript('npm', ['install'], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
+    let resp5 = await RunScript('sudo npm', ['install'], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
     console.log("ran sudo npm install")
     console.log(resp1, resp2, resp3, resp4, resp5)
     RunScript('PORT=' + port + " ", ["npm run start"], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
