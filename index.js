@@ -145,8 +145,10 @@ const scheduleUserKeyRemove = async function () {
                 if (scheduledUserRemoveArray.isEmpty()) {
                     if (LOCK_GITOLITE_ADMIN == false) {
                         LOCK_GITOLITE_ADMIN = true;
-                        let statusexit = await RunScript("sudo bash", ['./gitolite/push.sh']);
-                        console.log("finished pushing changes to gitolite")
+                        let statusexit = await RunScript("sudo bash", ['./gitolite/push.sh'], logsUsername, reponame, true);
+                        if (statusexit == true) {
+                            LOCK_GITOLITE_ADMIN = false
+                        }
                     }
                 }
             }
@@ -167,7 +169,10 @@ const scheduleUserKeyAdd = async function () {
                 if (scheduledUserAddArray.isEmpty()) {
                     if (LOCK_GITOLITE_ADMIN == false) {
                         LOCK_GITOLITE_ADMIN = true;
-                        RunScript("sudo bash", ['./gitolite/push.sh']);
+                        let statusexit = await RunScript("sudo bash", ['./gitolite/push.sh'], logsUsername, reponame, true);
+                        if (statusexit == true) {
+                            LOCK_GITOLITE_ADMIN = false
+                        }
                         console.log("finished pushing changes to gitolite")
                     }
                 }
@@ -187,7 +192,13 @@ const scheduleUserKeyChange = async function () {
             if (index > -1) {
                 scheduledUserChangeArray.splice(index, 1);
                 if (scheduledUserChangeArray.isEmpty()) {
-                    RunScript("sudo bash", ['./gitolite/push.sh']);
+                    if (LOCK_GITOLITE_ADMIN == false) {
+                        LOCK_GITOLITE_ADMIN = true;
+                        let statusexit = await RunScript("sudo bash", ['./gitolite/push.sh'], logsUsername, reponame, true);
+                        if (statusexit == true) {
+                            LOCK_GITOLITE_ADMIN = false
+                        }
+                    }
                     console.log("finished pushing changes to gitolite")
                 }
             }
@@ -207,7 +218,13 @@ setInterval(scheduleUserKeyAdd, 10000);
 setInterval(scheduleUserKeyChange, 10000);
 
 setInterval(function () {
-    RunScript("sudo bash", ['./gitolite/push.sh']);
+    if (LOCK_GITOLITE_ADMIN == false) {
+        LOCK_GITOLITE_ADMIN = true;
+        let statusexit = await RunScript("sudo bash", ['./gitolite/push.sh'], logsUsername, reponame, true);
+        if (statusexit == true) {
+            LOCK_GITOLITE_ADMIN = false
+        }
+    }
     console.log("finished pushing changes to gitolite")
 }, 5 * 60 * 1000);
 

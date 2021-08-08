@@ -44,7 +44,7 @@ async function RunScript(command = '', args = [], logsUsername = 'dustbin', appn
 
 async function deployApp(appname, username, port, checkout = 'main') {
     console.log("deployAppInUtlisGotCalledWith", appname, username, port, checkout)
-    await RunScript('sudo rm', ['-rf', `${appname}`], '', '', false, `/home/tsadmin/deploys/${username}/`);
+    await RunScript('sudo rm', ['-r', '-f', `${appname}`], '', '', false, `/home/tsadmin/deploys/${username}/`);
     if (fs.existsSync(`/home/tsadmin/deploys/${username}`)) {
         await RunScript('sudo mkdir', [`${username}`], username, appname, true, `/home/tsadmin/deploys/`);
     }
