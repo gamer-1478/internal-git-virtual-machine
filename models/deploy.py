@@ -20,13 +20,14 @@ username = str(sys.argv[3])
 username = username.replace("'","")
 
 print(node_dir, port)
-if not os.path.isfile('/home/tsadmin/deploys'):
+print()
+if not os.path.exists('/home/tsadmin/deploys'):
     subprocess.Popen("mkdir deploys", cwd="/home/tsadmin/", shell=True) #/home/displicare/username
 
-if not os.path.isfile('/home/tsadmin/deploys/'+username):
+if not os.path.exists('/home/tsadmin/deploys/'+username):
     subprocess.Popen("mkdir "+username, cwd="/home/tsadmin/deploys/", shell=True) #/home/displicare/username
 
-if os.path.isfile('/home/tsadmin/deploys/'+username+'/'+node_repo):
+if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
     a = subprocess.Popen("sudo rm -rf "+node_repo, cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
     if a.poll() != None:
         b = subprocess.Popen("git clone "+node_dir, cwd="/home/tsadmin/deploys/"+username, shell=True)
