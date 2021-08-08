@@ -5,10 +5,10 @@ async function RunScript(command = '', args = [], logsUsername = 'dustbin', appn
     let completed = false
     //scriptLocation = "./test.py"
     if (logToApp == true && !fs.existsSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/`)) {
-        spawnSync('mkdir', [`displicare-logs/`], { shell: true, cwd: `/home/tsadmin/deploys/${logsUsername}/${appname}/` })
+        spawnSync('mkdir -p', [`displicare-logs/`], { shell: true, cwd: `/home/tsadmin/deploys/${logsUsername}/${appname}/` })
     }
 
-    if(logToApp == true && !fs.existsSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/logs.txt`)){
+    if (logToApp == true && !fs.existsSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/logs.txt`)) {
         spawnSync('touch', [`logs.txt`], { shell: true, cwd: `/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs` })
     }
 
@@ -18,7 +18,7 @@ async function RunScript(command = '', args = [], logsUsername = 'dustbin', appn
     process.stdout.on('data', function (data) {
         //fs.appendFileSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/logs.txt`, data.toString());
         if (logToApp == true) {
-            fs.appendFileSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/logs.txt`, data.toString());
+            // fs.appendFileSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/logs.txt`, data.toString());
         }
         console.log('stdout: ' + data.toString());
     });
@@ -28,7 +28,7 @@ async function RunScript(command = '', args = [], logsUsername = 'dustbin', appn
         console.log('stderr: ' + data.toString());
         //fs.appendFileSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/logs.txt`, data.toString());
         if (logToApp == true) {
-            fs.appendFileSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/logs.txt`, data.toString());
+            // fs.appendFileSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/logs.txt`, data.toString());
         }
     });
 
@@ -36,15 +36,15 @@ async function RunScript(command = '', args = [], logsUsername = 'dustbin', appn
     process.on('exit', function (code) {
         console.log('child process exited with code ' + code.toString());
         if (logToApp == true) {
-            fs.appendFileSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/logs.txt`, 'process exited with code ' + code.toString());
+            // fs.appendFileSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/logs.txt`, 'process exited with code ' + code.toString());
             //fs.appendFileSync(`./test/${logsUsername}/${appname}/displicare-logs/logs.txt`, 'process exited with code ' + code.toString());
         }
-        completed = true;
-        //return true
+        //completed = true;
+        return true
     });
-    if (completed == true) {
-        return true;
-    }
+    // if (completed == true) {
+    //    return true;
+    // }
 }
 
 async function deployApp(appname, username, port, checkout = 'main') {
@@ -57,9 +57,9 @@ async function deployApp(appname, username, port, checkout = 'main') {
     }
     let resp2 = await RunScript('sudo git', ['clone', `/home/git/repositories/${appname}.git`], username, appname, true, `/home/tsadmin/deploys/${username}/`)
     console.log("ran sudo git clone")
-    let resp3 = await RunScript('mkdir', ['-p', `/home/tsadmin/deploys/${username}/${appname}/displicare-logs`], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}/`);
-    console.log("ran sudo mkdir for displicare logs")
-    spawnSync('touch', [`logs.txt`], { shell: true, cwd: `/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs` })
+    // let resp3 = await RunScript('mkdir', ['-p', `/home/tsadmin/deploys/${username}/${appname}/displicare-logs`], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}/`);
+    // console.log("ran sudo mkdir for displicare logs")
+    // spawnSync('touch', [`logs.txt`], { shell: true, cwd: `/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs` })
     let resp4 = await RunScript('sudo git', ['checkout', checkout], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
     console.log("ran sudo git checkout on main")
     let resp5 = await RunScript('sudo npm', ['install'], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
