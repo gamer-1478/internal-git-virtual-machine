@@ -28,10 +28,10 @@ if not os.path.exists('/home/tsadmin/deploys/'+username):
 if not os.path.exists("/home/tsadmin/deploys/"+username+'/'+"displicare-logs"):
     subprocess.Popen("mkdir displicare-logs", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
 
-subprocess.Popen("sudo rm -f "+node_repo+".logs.txt", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
-subprocess.Popen("sudo touch "+node_repo+".logs.txt", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
+subprocess.Popen("sudo rm -f "+node_repo+".txt", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
+subprocess.Popen("sudo touch "+node_repo+".txt", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
 
-logs = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".logs.txt","a+")
+logs = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".txt","a+")
 if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
     subprocess.Popen("sudo rm -rf "+node_repo, cwd="/home/tsadmin/deploys/"+username, shell=True, stdout=logs, stderr=logs) #/home/displicare/username
     time.sleep(2)
