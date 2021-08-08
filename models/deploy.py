@@ -59,7 +59,9 @@ if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
     subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(10)
     c = subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
-    time.sleep(3)
+    while c.poll() == None:
+        time.sleep(1)
+
     print(c.poll())
     while c.poll() != None:
         node = subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
@@ -80,7 +82,8 @@ else:
         subprocess.Popen("git checkout "+checkout, cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
         time.sleep(3)
     c = subprocess.Popen("npm install", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
-    time.sleep(3)
+    while c.poll() == None:
+        time.sleep(1)
 
     print(c.poll())
     while c.poll() != None:
