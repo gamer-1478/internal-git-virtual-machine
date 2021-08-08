@@ -121,7 +121,7 @@ const scheduleRepoAdd = async function () {
                 if (scheduledRepoAddArray.isEmpty()) {
                     if (LOCK_GITOLITE_ADMIN == false) {
                         LOCK_GITOLITE_ADMIN = true;
-                        let statusexit = await RunScript("sudo bash", ['./gitolite/push.sh'], logsUsername, reponame, true);
+                        let statusexit = await RunScript("sudo bash", ['/home/tsadmin/internal-git-virtual-machine/gitolite/push.sh'], "", "", false);
                         if (statusexit == true) {
                             LOCK_GITOLITE_ADMIN = false
                         }
@@ -145,7 +145,7 @@ const scheduleUserKeyRemove = async function () {
                 if (scheduledUserRemoveArray.isEmpty()) {
                     if (LOCK_GITOLITE_ADMIN == false) {
                         LOCK_GITOLITE_ADMIN = true;
-                        let statusexit = await RunScript("sudo bash", ['./gitolite/push.sh'], logsUsername, reponame, true);
+                        let statusexit = await RunScript("sudo bash", ['/home/tsadmin/internal-git-virtual-machine/gitolite/push.sh'], "", "", false);
                         if (statusexit == true) {
                             LOCK_GITOLITE_ADMIN = false
                         }
@@ -169,7 +169,7 @@ const scheduleUserKeyAdd = async function () {
                 if (scheduledUserAddArray.isEmpty()) {
                     if (LOCK_GITOLITE_ADMIN == false) {
                         LOCK_GITOLITE_ADMIN = true;
-                        let statusexit = await RunScript("sudo bash", ['./gitolite/push.sh'], logsUsername, reponame, true);
+                        let statusexit = await RunScript("sudo bash", ['/home/tsadmin/internal-git-virtual-machine/gitolite/push.sh'], "", "", false);
                         if (statusexit == true) {
                             LOCK_GITOLITE_ADMIN = false
                         }
@@ -180,7 +180,6 @@ const scheduleUserKeyAdd = async function () {
             console.log(scheduledUserAddArray)
         }
     }
-
 }
 
 const scheduleUserKeyChange = async function () {
@@ -194,7 +193,7 @@ const scheduleUserKeyChange = async function () {
                 if (scheduledUserChangeArray.isEmpty()) {
                     if (LOCK_GITOLITE_ADMIN == false) {
                         LOCK_GITOLITE_ADMIN = true;
-                        let statusexit = await RunScript("sudo bash", ['./gitolite/push.sh'], logsUsername, reponame, true);
+                        let statusexit = await RunScript("sudo bash", ['/home/tsadmin/internal-git-virtual-machine/gitolite/push.sh'], "", "", false);
                         if (statusexit == true) {
                             LOCK_GITOLITE_ADMIN = false
                         }
@@ -220,7 +219,7 @@ setInterval(scheduleUserKeyChange, 10000);
 setInterval(async function () {
     if (LOCK_GITOLITE_ADMIN == false) {
         LOCK_GITOLITE_ADMIN = true;
-        let statusexit = await RunScript("sudo bash", ['./gitolite/push.sh'], '', '', false);
+        let statusexit = await RunScript("sudo bash", ['/home/tsadmin/internal-git-virtual-machine/gitolite/push.sh'], '', '', false);
         if (statusexit == true) {
             LOCK_GITOLITE_ADMIN = false
         }
