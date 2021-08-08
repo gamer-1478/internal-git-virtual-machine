@@ -52,15 +52,15 @@ async function deployApp(appname, username, port, checkout = 'main') {
     let resp1 = await RunScript('sudo rm -rf', [`${appname}`], '', '', false, `/home/tsadmin/deploys/${username}/`);
     console.log("ran sudo rm")
     if (fs.existsSync(`/home/tsadmin/deploys/${username}`)) {
-        await RunScript('sudo mkdir -p', [`${username}`], username, appname, true, `/home/tsadmin/deploys/`);
-        console.log("ran sudo mkdir for username")
+        await RunScript('mkdir -p', [`${username}`], username, appname, true, `/home/tsadmin/deploys/`);
+        console.log("ran sudo mkdir for username " + username)
     }
-    let resp2 = await RunScript('sudo git', ['clone', `/home/git/repositories/${appname}.git`], username, appname, true, `/home/tsadmin/deploys/${username}/`)
+    let resp2 = await RunScript('git', ['clone', `/home/git/repositories/${appname}.git`], username, appname, true, `/home/tsadmin/deploys/${username}/`)
     console.log("ran sudo git clone")
     // let resp3 = await RunScript('mkdir', ['-p', `/home/tsadmin/deploys/${username}/${appname}/displicare-logs`], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}/`);
     // console.log("ran sudo mkdir for displicare logs")
     // spawnSync('touch', [`logs.txt`], { shell: true, cwd: `/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs` })
-    let resp4 = await RunScript('sudo git', ['checkout', checkout], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
+    let resp4 = await RunScript('git', ['checkout', checkout], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
     console.log("ran sudo git checkout on main")
     let resp5 = await RunScript('sudo npm', ['install'], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
     console.log("ran sudo npm install")
