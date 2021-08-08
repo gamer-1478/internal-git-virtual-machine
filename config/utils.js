@@ -51,7 +51,7 @@ async function deployApp(appname, username, port, checkout = 'main') {
     await RunScript('sudo git', ['clone', `/home/git/repositories/${appname}.git`], username, appname, true, `/home/tsadmin/deploys/${username}/`)
     await RunScript('sudo mkdir', [`displicare-logs`], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}/`);
     await RunScript('sudo git', ['checkout', checkout], username, appname, true, `/home/tsadmin/deploys/${username}/`)
-    await RunScript('npm', ['install', checkout], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
+    await RunScript('npm', ['install'], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
     RunScript('PORT=' + port + " ", ["npm start"], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
     return true;
 }
