@@ -54,7 +54,7 @@ async function deployApp(appname, username, port, checkout = 'main') {
     console.log("ran sudo git clone")
     let resp3 = await RunScript('sudo mkdir', ['-p', `/home/tsadmin/deploys/${username}/${appname}/displicare-logs`], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}/`);
     console.log("ran sudo mkdir for displicare logs")
-    let resp4 = await RunScript('sudo git', ['checkout', checkout], username, appname, true, `/home/tsadmin/deploys/${username}/`)
+    let resp4 = await RunScript('sudo git', ['checkout', checkout], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
     console.log("ran sudo git checkout on main")
     let resp5 = await RunScript('sudo npm', ['install'], username, appname, true, `/home/tsadmin/deploys/${username}/${appname}`)
     console.log("ran sudo npm install")
