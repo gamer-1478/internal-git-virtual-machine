@@ -69,7 +69,7 @@ else:
     node = subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(5)
     nodefile = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json", 'a+')
-    nodejson = json.load(nodefile)
+    nodejson = json.loads(nodefile)
     nodejson['pid'] = node.pid
     nodefile.write(nodejson)
 
