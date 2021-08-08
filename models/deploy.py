@@ -30,6 +30,7 @@ if not os.path.exists("/home/tsadmin/deploys/"+username+'/'+"displicare-logs"):
 
 subprocess.Popen("sudo rm -f "+node_repo+".txt", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
 subprocess.Popen("sudo touch "+node_repo+".txt", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
+time.sleep(2)
 
 logs = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".txt", 'a+')
 if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
