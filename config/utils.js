@@ -5,8 +5,13 @@ async function RunScript(command = '', args = [], logsUsername = 'dustbin', appn
     let completed = false
     //scriptLocation = "./test.py"
     if (logToApp == true && !fs.existsSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/`)) {
-        await spawnSync('mkdir', [`displicare-logs/`], { shell: true, cwd: `/home/tsadmin/deploys/${logsUsername}/${appname}/` })
+        spawnSync('mkdir', [`displicare-logs/`], { shell: true, cwd: `/home/tsadmin/deploys/${logsUsername}/${appname}/` })
     }
+
+    if(logToApp == true && !fs.existsSync(`/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs/logs.txt`)){
+        spawnSync('touch', [`logs.txt`], { shell: true, cwd: `/home/tsadmin/deploys/${logsUsername}/${appname}/displicare-logs` })
+    }
+    
     var process = await spawn(command, args, { shell: true, cwd: cwd });
 
     process.stdout.setEncoding('utf-8')
