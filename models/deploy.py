@@ -57,3 +57,5 @@ else:
     time.sleep(10)
     subprocess.Popen('PORT='+port+" " + "npm start", cwd="/home/tsadmin/deploys/"+username+'/'+node_repo, shell=True, stdout=logs, stderr=logs)
     time.sleep(5)
+
+logs.close()
