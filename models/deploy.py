@@ -20,7 +20,7 @@ username = str(sys.argv[3])
 username = username.replace("'","")
 
 print(node_dir, port)
-print()
+print(os.path.exists('/home/tsadmin/deploys'))
 if not os.path.exists('/home/tsadmin/deploys'):
     subprocess.Popen("mkdir deploys", cwd="/home/tsadmin/", shell=True) #/home/displicare/username
 
