@@ -37,9 +37,15 @@ if not os.path.exists("/home/tsadmin/deploys/"+username+'/'+"displicare-logs"):
 subprocess.Popen("sudo rm -f "+node_repo+".txt", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
 time.sleep(1)
 subprocess.Popen("sudo touch "+node_repo+".txt", cwd="/home/tsadmin/deploys/"+username, shell=True) #/home/displicare/username
+time.sleep(1)
+logs = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".txt", 'a+')
+
+with open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json") as f:
+    data = json.load(f)
+    if(data['pid'] != 0):
+        subprocess.Popen("sudo kill "+data['pid'], cwd="/home/tsadmin/deploys/"+username, shell=True, stdout=logs, stderr=logs) #/home/displicare/username
 time.sleep(2)
 
-logs = open("/home/tsadmin/deploys/"+username+"/"+node_repo+".txt", 'a+')
 if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
     subprocess.Popen("sudo rm -rf "+node_repo, cwd="/home/tsadmin/deploys/"+username, shell=True, stdout=logs, stderr=logs) #/home/displicare/username
     time.sleep(2)
@@ -60,6 +66,7 @@ if os.path.exists('/home/tsadmin/deploys/'+username+'/'+node_repo):
         with open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json", 'w') as json_file:
             json.dump(data, json_file)
             json_file.close()
+            f.close()
         print(data)
 else:
     b = subprocess.Popen("git clone "+node_dir, cwd="/home/tsadmin/deploys/"+username, shell=True, stdout=logs, stderr=logs)
@@ -78,6 +85,7 @@ else:
         with open("/home/tsadmin/deploys/"+username+"/"+node_repo+".json", 'w') as json_file:
             json.dump(data, json_file)
             json_file.close()
+            f.close()
         print(data)
 
 logs.close()
