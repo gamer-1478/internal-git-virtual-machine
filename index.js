@@ -217,7 +217,7 @@ setInterval(scheduleUserKeyAdd, 10000);
 
 setInterval(scheduleUserKeyChange, 10000);
 
-setInterval(function () {
+setInterval(async function () {
     if (LOCK_GITOLITE_ADMIN == false) {
         LOCK_GITOLITE_ADMIN = true;
         let statusexit = await RunScript("sudo bash", ['./gitolite/push.sh'], logsUsername, reponame, true);
